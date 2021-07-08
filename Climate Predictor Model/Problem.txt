@@ -1,0 +1,3 @@
+Problem 1: Rainfall is unpredictable, develop an app to predict rainfall accurately.
+Problem 2:Farmer's need support because they cannot only rely on rainfall. An app to communicate 
+

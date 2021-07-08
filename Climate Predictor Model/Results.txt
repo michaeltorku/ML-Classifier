@@ -1,0 +1,46 @@
+Random_state = 0
+
+KNN with 10 Neighbors - 51%
+Decision Tree - 43%
+MLP - 53%
+SGD - 55%
+KNN with 1111 Neighbours - 60%
+KNN with 2202 Neighbours (CHUCK)- 61%
+
+Random_state = 3
+
+KNN with 10 Neighbors - 50%
+Decision Tree - 42%
+MLP - 51%
+SDG - 56%
+CHUCK - 61%
+
+Random_state = 57
+
+KNN with 10 Neighbors - 51%
+Decision Tree - 41%
+MLP - 51%
+SGD - 55%
+
+Random_state = 313
+
+KNN with 10 Neighbors - 51%
+Decision Tree - 42%
+MLP - 52%
+SGD - 54%
+
+Random_state = 45
+
+KNN with 10 Neighbors - 51%
+Decision Tree - 43%
+MLP - 52%  
+SGD - 54%
+CHUCK - 61%
+
+Random_state = 113
+
+KNN with 10 Neighbors - 51%
+Decision Tree - 42%
+MLP - 52%
+SGD - 52%
+
