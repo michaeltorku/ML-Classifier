@@ -43,7 +43,7 @@ class KNN:
 
   @param: X_train The images that will be used to train the model
   @param: y_train The classification labels of the training images
-  @param k The number of neighbors the model will use
+  @param: k The number of neighbors the model will use
 
   """
     self.KNN.fit(X_train, np.ravel(y_train,order='C'))
