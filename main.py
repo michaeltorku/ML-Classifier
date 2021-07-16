@@ -49,9 +49,9 @@ def indexer():
 
   # index it
 
-  Kmodel says its a dog - 0.76 ->
-  SVmodel says its a cat - 0.58 ->
-  Dtree says its a cat - 0.66 ->
+  # Kmodel says its a dog - 0.76 ->
+  # SVmodel says its a cat - 0.58 ->
+  # Dtree says its a cat - 0.66 ->
 
 
 # look at accuracy wrt to their output -> so we get a sense of how accrate
