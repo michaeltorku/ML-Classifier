@@ -31,11 +31,10 @@ class KNN:
     train_x, train_y = train['Features'], train['Labels']
     test_x, test_y = test['Features'], test['Labels']
     self.KNN = KNeighborsClassifier(n_neighbors = k, weights = 'uniform', p = 1) 
-    self.KNN_train(train_x, train_y)
-    self.score = self.KNN_test(test_x, test_y)
+    self.KNN_Train(train_x, train_y)
+    self.score = self.KNN_Test(test_x, test_y)
     return self.KNN
     
-
 
   def KNN_Train(self, X_train, y_train, k=3):
   """
@@ -69,28 +68,42 @@ class KNN:
 
 class LogisticRegression:
 
-def LogReg():
-    logreg = LogisticRegression()
-    logreg.fit(X_train, np.ravel(y_train,order='C'))
-    logreg_predict = logreg.predict(X_test)
-    logreg_score = np.mean(logreg_predict == np.ravel(y_test,order='C'))
-    print("LogReg Score: {:.9f}".format(logreg_score))
-    con_mat = confusion_matrix(np.ravel(y_test,order='C'),logreg_predict, [0,1])
-    print(con_mat)
+  def __init__(self, data, partition=0.8):
+
+    #Test Train Split
+    msk = np.random.rand(len(df)) < 0.8
+    train, test = data[msk], data[~msk]
+    train_x, train_y = train['Features'], train['Labels']
+    test_x, test_y = test['Features'], test['Labels']
+    self.LogReg = LogisticRegression()
+    self.LogReg_Train(train_x, train_y)
+
+    self.score = self.LogReg_Test(test_x, test_y)
+    return self.KNN
+
+  def LogReg_Train(self, X_train, y_train):
+
+      self.LogReg.fit(X_train, np.ravel(y_train,order='C'))
+  
+  def LogReg_Test(self, X_test, y_test):
+
+    LogReg_predict = self.LogReg.predict(X_test)
+    LogReg_score = np.mean(LogReg_predict == np.ravel(y_test,order='C'))
+    return round(LogReg_score, 5)
 
 class SupportVectorMachine:
 
-  def SVM():
-      """ Classifier with Support Vector Machine"""
-      SVM = svm.SVC()
-      SVM.fit(X_train, np.ravel(y_train,order='C'))
-      SVM_predict = SVM.predict(X_test)
-      SVM_score = np.mean(SVM_predict == np.ravel(y_test,order='C'))
-      print("SVM Predictions: " + str(SVM_predict))
-      print("SVM Score: {:.2f}".format(SVM_score))
-      con_mat = confusion_matrix(np.ravel(y_test,order='C'),SVM_predict, [0,1])
-      print(con_mat)
-      print("")
+    def SVM():
+        """ Classifier with Support Vector Machine"""
+        SVM = svm.SVC()
+        SVM.fit(X_train, np.ravel(y_train,order='C'))
+        SVM_predict = SVM.predict(X_test)
+        SVM_score = np.mean(SVM_predict == np.ravel(y_test,order='C'))
+        print("SVM Predictions: " + str(SVM_predict))
+        print("SVM Score: {:.2f}".format(SVM_score))
+        con_mat = confusion_matrix(np.ravel(y_test,order='C'),SVM_predict, [0,1])
+        print(con_mat)
+        print("")
 
 
 class DecisionTree:
@@ -109,17 +122,17 @@ class DecisionTree:
 
 class LinearPerception:
 
-  def LP():
-      """Classifier with LP"""
-      # Fit only to the training data
-      LP = Perceptron()
-      LP.fit(X_train, np.ravel(y_train,order='C'))
-      print("Trained!")
-      LP_predict = LP.predict(X_test)
-      LP_score = np.mean(LP_predict == np.ravel(y_test,order='C'))
-      print("LP Predictions: " + str(LP_predict))
-      print("LP Score: {:.8f}".format(LP_score))
-      con_mat = confusion_matrix(np.ravel(y_test,order='C'),LP_predict, [0,1])
-      print(con_mat)                                                              
+    def LP():
+        """Classifier with LP"""
+        # Fit only to the training data
+        LP = Perceptron()
+        LP.fit(X_train, np.ravel(y_train,order='C'))
+        print("Trained!")
+        LP_predict = LP.predict(X_test)
+        LP_score = np.mean(LP_predict == np.ravel(y_test,order='C'))
+        print("LP Predictions: " + str(LP_predict))
+        print("LP Score: {:.8f}".format(LP_score))
+        con_mat = confusion_matrix(np.ravel(y_test,order='C'),LP_predict, [0,1])
+        print(con_mat)                                                              
 
 
