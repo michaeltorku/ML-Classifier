@@ -1,5 +1,6 @@
 
 import opencv2 as cv2
+import matplotlib
 
 
 cap = cv2.VideoCapture(0)
