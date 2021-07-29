@@ -23,55 +23,48 @@ from sklearn.linear_model import Perceptron
 #Outputs X_train, X_test, y_train, y_test
 class KNN:
 
-  def __init__(self, data, partition=0.8):
-
+  def __init__(self, data, partition=0.8, k=3):
     #Test Train Split
-    msk = np.random.rand(len(df)) < 0.8
+    msk = np.random.rand(len(data)) < 0.8
     train, test = data[msk], data[~msk]
     train_x, train_y = train['Features'], train['Labels']
     test_x, test_y = test['Features'], test['Labels']
     self.KNN = KNeighborsClassifier(n_neighbors = k, weights = 'uniform', p = 1) 
     self.KNN_Train(train_x, train_y)
     self.score = self.KNN_Test(test_x, test_y)
-    return self.KNN
     
-
+  
   def KNN_Train(self, X_train, y_train, k=3):
-  """
-  Trains a KNN model using inputted data
-
-  @param: X_train The images that will be used to train the model
-  @param: y_train The classification labels of the training images
-  @param: k The number of neighbors the model will use
-
-  """
+    """
+    Trains a KNN model using inputted data
+    @param: X_train The images that will be used to train the model
+    @param: y_train The classification labels of the training images
+    @param: k The number of neighbors the model will use 
+    """
     self.KNN.fit(X_train, np.ravel(y_train,order='C'))
-
   
 
   def KNN_Test(self, X_test, y_test):
-  """
-  Trains a KNN model using inputted data
+    """
+    Trains a KNN model using inputted data
 
-  @param: X_test The images that will be used to test the model
-  @param: y_test The classification labels of the testing images
-  @return: score The accuracy of the model
+    @param: X_test The images that will be used to test the model
+    @param: y_test The classification labels of the testing images
+    @return: score The accuracy of the model
 
-  """
+    """
     KNN_predict = self.KNN.predict(X_test)
     KNN_score = np.mean(KNN_predict == np.ravel(y_test,order='C'))
     # return ("KNN Score: {:.9f}".format(KNN_score))
     return round(KNN_score, 5)
     # Update score in case of retraining
 
-
-
-class LogisticRegression:
+class LogisticReg:
 
   def __init__(self, data, partition=0.8):
 
     #Test Train Split
-    msk = np.random.rand(len(df)) < 0.8
+    msk = np.random.rand(len(data)) < 0.8
     train, test = data[msk], data[~msk]
     train_x, train_y = train['Features'], train['Labels']
     test_x, test_y = test['Features'], test['Labels']
@@ -79,7 +72,6 @@ class LogisticRegression:
     self.LogReg_Train(train_x, train_y)
 
     self.score = self.LogReg_Test(test_x, test_y)
-    return self.KNN
 
   def LogReg_Train(self, X_train, y_train):
 
@@ -92,47 +84,94 @@ class LogisticRegression:
     return round(LogReg_score, 5)
 
 class SupportVectorMachine:
+  def __init__(self, data, partition=0.8):
 
-    def SVM():
-        """ Classifier with Support Vector Machine"""
-        SVM = svm.SVC()
-        SVM.fit(X_train, np.ravel(y_train,order='C'))
-        SVM_predict = SVM.predict(X_test)
-        SVM_score = np.mean(SVM_predict == np.ravel(y_test,order='C'))
-        print("SVM Predictions: " + str(SVM_predict))
-        print("SVM Score: {:.2f}".format(SVM_score))
-        con_mat = confusion_matrix(np.ravel(y_test,order='C'),SVM_predict, [0,1])
-        print(con_mat)
-        print("")
+    #Test Train Split
+    msk = np.random.rand(len(data)) < 0.8
+    train, test = data[msk], data[~msk]
+    train_x, train_y = train['Features'], train['Labels']
+    test_x, test_y = test['Features'], test['Labels']
+    self.SVM = svm.SVC()
+    self.SVM_Train(train_x, train_y)
 
+    self.score = self.SVM_Test(test_x, test_y)
+  
+  def SVM_Train(self, X_train, y_train):
+
+    self.SVM.fit(X_train, np.ravel(y_train,order='C'))
+  
+  def SVM_Test(self, X_test, y_test):
+
+    SVM_predict = self.SVM.predict(X_test)
+    self.SVM_score = np.mean(SVM_predict == np.ravel(y_test,order='C'))
+    return round(self.SVM_score, 5)
 
 class DecisionTree:
+  def __init__(self, data, partition=0.8):
 
-  def DT():
-      """Classifier with Decision Tree"""
-      DT = tree.DecisionTreeClassifier()
-      DT.fit(X_train, np.ravel(y_train,order='C'))
-      DT_predict = DT.predict(X_test)
-      DT_score = np.mean(DT_predict == np.ravel(y_test,order='C'))
-      print("DT Predictions: " + str(DT_predict))
-      print("DT Score: {:.2f}".format(DT_score))
-      con_mat = confusion_matrix(np.ravel(y_test,order='C'),DT_predict, [0,1])
-      print(con_mat)
-      print("")
+    #Test Train Split
+    msk = np.random.rand(len(data)) < 0.8
+    train, test = data[msk], data[~msk]
+    train_x, train_y = train['Features'], train['Labels']
+    test_x, test_y = test['Features'], test['Labels']
+    self.DT = tree.DecisionTreeClassifier()
+    self.DT_Train(train_x, train_y)
+
+    self.score = self.DT_Test(test_x, test_y)
+
+  def DT_Train(self, X_train, y_train):
+
+      self.DT.fit(X_train, np.ravel(y_train,order='C'))
+
+  def DT_Test(self, X_test, y_test):
+
+    DT_predict = self.DT.predict(X_test)
+    self.DT_score = np.mean(DT_predict == np.ravel(y_test,order='C'))
+    return round(self.DT_score, 5)
 
 class LinearPerception:
+    def __init__(self, data, partition=0.8):
 
-    def LP():
-        """Classifier with LP"""
-        # Fit only to the training data
-        LP = Perceptron()
-        LP.fit(X_train, np.ravel(y_train,order='C'))
-        print("Trained!")
-        LP_predict = LP.predict(X_test)
-        LP_score = np.mean(LP_predict == np.ravel(y_test,order='C'))
-        print("LP Predictions: " + str(LP_predict))
-        print("LP Score: {:.8f}".format(LP_score))
-        con_mat = confusion_matrix(np.ravel(y_test,order='C'),LP_predict, [0,1])
-        print(con_mat)                                                              
+      #Test Train Split
+      msk = np.random.rand(len(data)) < 0.8
+      train, test = data[msk], data[~msk]
+      train_x, train_y = train['Features'], train['Labels']
+      test_x, test_y = test['Features'], test['Labels']
+      self.LP = Perceptron()
+      self.LP_Train(train_x, train_y)
 
+      self.score = self.LP_Test(test_x, test_y)
+    
+    def LP_Train(self, X_train, y_train):
 
+      self.LP.fit(X_train, np.ravel(y_train,order='C'))
+
+    def LP_Test(self, X_test, y_test):
+      LP_predict = self.LP.predict(X_test)
+      self.LP_score = np.mean(LP_predict == np.ravel(y_test,order='C'))
+      return round(self.LP_score, 5)                                                              
+"""
+ALL THE CLASSES HAVE THE SAME CODE (MAYBE MAKE A GENERAL CLASS FOR THEM)
+def __init__(self, data, partition=0.8):
+
+    #Test Train Split
+    msk = np.random.rand(len(data)) < 0.8
+    train, test = data[msk], data[~msk]
+    train_x, train_y = train['Features'], train['Labels']
+    test_x, test_y = test['Features'], test['Labels']
+    self.ModelName = LogisticRegression()
+    self.ModelName_Train(train_x, train_y)
+
+    self.score = self.ModelName_Test(test_x, test_y)
+
+  def ModelName_Train(self, X_train, y_train):
+
+      self.ModelName.fit(X_train, np.ravel(y_train,order='C'))
+  
+  def ModelName_Test(self, X_test, y_test):
+
+    ModelName_predict = self.ModelName.predict(X_test)
+    ModelName_score = np.mean(ModelName_predict == np.ravel(y_test,order='C'))
+    return round(ModelName_score, 5)
+
+"""
