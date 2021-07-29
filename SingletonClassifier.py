@@ -4,6 +4,7 @@ import opencv2 as cv2
 import ImageProcessing
 from TrainingModels import ModelClasses
 
+#import 
 
 class SingletonClassifier:
 
@@ -15,30 +16,31 @@ class SingletonClassifier:
   if not (cap.isOpened()):
       print("Could not open video device")
 
+  def run():
+    while(True): 
+    # Capture frame-by-frame
+        ret, img = cap.read()
 
-  while(True): 
-  # Capture frame-by-frame
-      ret, img = cap.read()
+        if ret:
+    #resize image
+          ImageProcessing.resize(img)
 
-      if ret:
-  #resize image
-        image-processing.resize(frame)
+    #transform to greyscale
+          ImageProcessing.to_greyscale(img)
 
-  #transform to greyscale
-        image-processing.to_greyscale(frame)
+    # Display the resulting frame
+          cv2.imshow(‘preview’,img)
 
-  # Display the resulting frame
-        cv2.imshow(‘preview’,frame)
+    #Pass image to classifier
+    ........................
 
-  #Pass image to classifier
-
-      else:
-        print('Unable to access camera device')
+        else:
+          print('Unable to access camera device')
 
 
-  # Grabs, decodes and returns the next video frame.
+    # Grabs, decodes and returns the next video frame.
 
-  #Waits for a user input to quit the application
+    #Waits for a user input to quit the application
 
-      if cv2.waitKey(1) & 0xFF == ord(‘q’):
-          break
+        if cv2.waitKey(1) & 0xFF == ord(‘q’):
+            break

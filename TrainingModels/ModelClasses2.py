@@ -21,7 +21,7 @@ from sklearn.linear_model import Perceptron
 
 
 #Outputs X_train, X_test, y_train, y_test
-class KNN:
+class ModelClasses:
 
   def __init__(self, data, partition=0.8, k=3):
     #Test Train Split

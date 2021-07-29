@@ -12,6 +12,9 @@ def _PCA(variance_percentage = 0.95, train_x, test_x):
 
         @return: X_train The new features to train the model
     """
+    PCA_Model = create_PCA(variance_percentage, train_x)
+    
+
 
 def create_PCA(variance_percentage = 0.95, train_x):
     """This method creates a principal component model for a given set of training data
